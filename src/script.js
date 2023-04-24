@@ -10,9 +10,7 @@ const canvasEl = document.querySelector(".webgl");
 const textureLoader = new THREE.TextureLoader();
 const texture = textureLoader.load("/checkboard.jpeg");
 const matcap = textureLoader.load("/matcap.jpeg");
-// texture.repeat.x = 2;
-// texture.repeat.y = 2;
-// *
+
 texture.generateMipmaps = false;
 
 texture.minFilter = THREE.NearestFilter;
@@ -22,7 +20,6 @@ const scene = new THREE.Scene();
 const fontLoader = new THREE.FontLoader();
 
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-  // console.log(font);
   const textGeometry = new THREE.TextBufferGeometry("Creative  Developer", {
     font: font,
     size: 0.5,
@@ -34,14 +31,6 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
     bevelOffset: 0,
     bevelSegments: 5,
   });
-
-  // textGeometry.computeBoundingBox();
-
-  // textGeometry.translate(
-  //   -textGeometry.boundingBox.max.x / 2,
-  //   -textGeometry.boundingBox.max.y / 2,
-  //   -textGeometry.boundingBox.max.z / 2
-  // );
 
   textGeometry.center();
 
@@ -87,27 +76,15 @@ gui.add(parameters, "spin");
 // geomatry
 const geomatry = new THREE.SphereBufferGeometry(0.8, 16, 16);
 
-// const material = new THREE.MeshBasicMaterial();
-// const material = new THREE.MeshBasicMaterial();
-// const material = new THREE.MeshMatcapMaterial();
-// const material = new THREE.MeshDepthMaterial();
 const material = new THREE.MeshStandardMaterial();
-// material.opacity = 0.5;
-// material.flatShading = true;
+
 const mesh = new THREE.Mesh(geomatry, material);
-// mesh.rotation.reorder("YXZ");
-// scene.add(mesh);
 
 // debug GUI
 
 gui.add(mesh.position, "y", -3, 3, 0.01).name("cube elevation");
 gui.add(mesh.position, "x", -3, 3, 0.01);
 gui.add(mesh.position, "z", -3, 3, 0.01);
-
-// axes helper
-const axesHelper = new THREE.AxesHelper(2);
-
-// scene.add(axesHelper);
 
 // lights
 
@@ -170,18 +147,7 @@ renderer.render(scene, camera);
 
 const clock = new THREE.Clock();
 
-// gsap.to(mesh.position, { duration: 2, x: 2 });
 const tick = () => {
-  const elapsedTime = clock.getElapsedTime();
-  // mesh.rotation.y = elapsedTime;
-  // mesh.position.y = Math.sin(elapsedTime);
-  // mesh.position.x = Math.cos(elapsedTime);
-  // camera.lookAt(mesh.position);
-  // camera.position.x = Math.sin(cursor.x * Math.PI * 2) * 3;
-  // camera.position.z = Math.cos(cursor.x * Math.PI * 2) * 3;
-  // camera.position.y = cursor.y * 6;
-  // camera.lookAt(mesh.position);
-
   renderer.render(scene, camera);
   window.requestAnimationFrame(tick);
 };
